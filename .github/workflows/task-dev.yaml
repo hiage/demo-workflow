@@ -9,9 +9,9 @@ on: [workflow_dispatch]
 #         default: 'warning'
 #       tags:
 #         description: 'Test scenario tags'  
-  push:
-    branches: 
-         - dev
+  # push:
+  #   branches: 
+  #        - dev
 
 jobs:
 
