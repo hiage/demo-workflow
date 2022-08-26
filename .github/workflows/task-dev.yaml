@@ -1,14 +1,14 @@
 name: Task Dev Environment
 
-on: 
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
+on: [workflow_dispatch]
+#   workflow_dispatch:
+#     inputs:
+#       logLevel:
+#         description: 'Log level'     
+#         required: true
+#         default: 'warning'
+#       tags:
+#         description: 'Test scenario tags'  
   push:
     branches: 
          - dev
@@ -34,6 +34,6 @@ jobs:
           echo "Hi, world!"
           echo "To day is $(date)"
 
-    - run: |
-        echo "Log level: ${{ github.event.inputs.logLevel }}"
-        echo "Tags: ${{ github.event.inputs.tags }}"
+#     - run: |
+#         echo "Log level: ${{ github.event.inputs.logLevel }}"
+#         echo "Tags: ${{ github.event.inputs.tags }}"
