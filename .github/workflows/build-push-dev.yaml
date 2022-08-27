@@ -19,6 +19,15 @@ jobs:
       name: Build and push
       uses: docker/build-push-action@v3
       with:
-        file: ./dev/Dockerfile
+        file: ./dev/backend.Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:development
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:be-development
+    
+    -
+      name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        file: ./dev/frontend.Dockerfile
+        push: true
+        #test multiple tags with same docker file.
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:fe-development, ${{ secrets.DOCKERHUB_USERNAME }}/apps:others

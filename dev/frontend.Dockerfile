@@ -5,5 +5,5 @@ RUN apk fix && \
     tzdata 
     
 ENV TZ=Asia/Jakarta
-RUN echo "Image devel"
-RUN pwd
+RUN echo "Image devel frontend"
+RUN pwd && ls -lh && date
