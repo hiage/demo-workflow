@@ -1,40 +1,25 @@
-name: Task Dev Environment
-
-# on: [workflow_dispatch]
-#   workflow_dispatch:
-#     inputs:
-#       logLevel:
-#         description: 'Log level'     
-#         required: true
-#         default: 'warning'
-#       tags:
-#         description: 'Test scenario tags'  
+name: build and push staging
+#on: [push] # When pushing to any branch then run this action
 on:
   push:
     branches: 
          - others
-
 jobs:
-
-  build:
-    runs-on: ubuntu-latest
-
+  dev-build-push:  # job name
+    runs-on: ubuntu-latest  # runner name : (ubuntu latest version)
+    environment: demo-workflow
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2 # first action : checkout source code
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: change timezone to Asia/Jakarta
-      run: |
-          export DEBIAN_FRONTEND=noninteractive
-          export DEBCONF_NONINTERACTIVE_SEEN=true
-          sudo apt update  > /dev/null && sudo apt install tzdata -yqq > /dev/null    
-          export TZ="Asia/Jakarta"
-          cat /usr/share/zoneinfo/Asia/Jakarta > /etc/localtime
-          
-    - name: Hello from development
-      run: |
-          echo "Hi, world!"
-          echo "To day is $(date)"
-
-#     - run: |
-#         echo "Log level: ${{ github.event.inputs.logLevel }}"
-#         echo "Tags: ${{ github.event.inputs.tags }}"
+    -
+      name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        file: Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:others-stg
