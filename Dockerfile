@@ -1,4 +1,4 @@
-FROM golang:1.18-alpine as builder
+FROM golang:1.19-alpine as builder
 
 RUN apk update && apk upgrade && \
     apk --no-cache --update add git make 
@@ -18,7 +18,7 @@ RUN go build -o main main.go
 RUN rm -rf /var/cache/apk/*
 
 FROM alpine:latest
-
+ENV APP_HOME=/app
 RUN apk fix && \
     apk add --no-cache \ 
     tzdata \
@@ -28,8 +28,8 @@ ENV TZ=Asia/Jakarta
 
 RUN rm -rf /var/cache/apk/*
 
-RUN mkdir -p /app
-WORKDIR /app
+RUN mkdir -p ${APP_HOME}
+WORKDIR ${APP_HOME}
 EXPOSE 8080
-COPY --from=builder /app/main /app/
+COPY --from=builder /app/main ${APP_HOME}
 CMD ["./app/main"]
