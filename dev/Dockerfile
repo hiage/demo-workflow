@@ -5,3 +5,5 @@ RUN apk fix && \
     tzdata 
     
 ENV TZ=Asia/Jakarta
+RUN echo "Image devel"
+RUN pwd

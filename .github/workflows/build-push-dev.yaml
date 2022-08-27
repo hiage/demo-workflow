@@ -1,11 +1,11 @@
-name: Push to docker hub 
+name: Push dev img to docker hub 
 #on: [push] # When pushing to any branch then run this action
 on:
   push:
     branches: 
          - development
 jobs:
-  push-image-to-docker-hub:  # job name
+  dev-build-push:  # job name
     runs-on: ubuntu-latest  # runner name : (ubuntu latest version)
     environment: demo-workflow
     steps:
