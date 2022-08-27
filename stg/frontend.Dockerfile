@@ -5,5 +5,5 @@ RUN apk fix && \
     tzdata 
     
 ENV TZ=Asia/Jakarta
-RUN echo "Image Staging"
+RUN echo "Image Staging frontend"
 RUN pwd && ls -lh && date

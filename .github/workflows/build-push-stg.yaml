@@ -1,9 +1,9 @@
-name: build and push development
+name: build and push staging
 #on: [push] # When pushing to any branch then run this action
 on:
   push:
     branches: 
-         - development
+         - staging
 jobs:
   dev-build-push:  # job name
     runs-on: ubuntu-latest  # runner name : (ubuntu latest version)
@@ -19,15 +19,15 @@ jobs:
       name: Build and push
       uses: docker/build-push-action@v3
       with:
-        file: ./dev/backend.Dockerfile
+        file: ./stg/backend.Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:be-development
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:be-staging
     
     -
       name: Build and push
       uses: docker/build-push-action@v3
       with:
-        file: ./dev/frontend.Dockerfile
+        file: ./stg/frontend.Dockerfile
         push: true
         #test multiple tags with same docker file.
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:fe-development, ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:others
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:fe-staging, ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPO_NAME }}:others-stg
