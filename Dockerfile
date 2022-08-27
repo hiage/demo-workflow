@@ -10,7 +10,7 @@ RUN mkdir -p ${APP_HOME}
 
 WORKDIR ${APP_HOME}
 COPY . ${APP_HOME}
-RUN go mod init
+RUN go mod init main
 RUN go mod download
 RUN go mod vendor
 RUN go mod verify
