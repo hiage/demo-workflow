@@ -9,9 +9,9 @@ ENV APP_HOME=/app
 RUN mkdir -p ${APP_HOME}
 
 WORKDIR ${APP_HOME}
-COPY . ${APP_HOME}
+COPY main.go ${APP_HOME}
 RUN go mod init main
-RUN go mod download
+RUN go mod tidy
 RUN go mod vendor
 RUN go mod verify
 RUN go build -o main main.go
