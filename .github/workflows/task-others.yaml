@@ -1,0 +1,40 @@
+name: Task Dev Environment
+
+# on: [workflow_dispatch]
+#   workflow_dispatch:
+#     inputs:
+#       logLevel:
+#         description: 'Log level'     
+#         required: true
+#         default: 'warning'
+#       tags:
+#         description: 'Test scenario tags'  
+on:
+  push:
+    branches: 
+         - others
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: change timezone to Asia/Jakarta
+      run: |
+          export DEBIAN_FRONTEND=noninteractive
+          export DEBCONF_NONINTERACTIVE_SEEN=true
+          sudo apt update  > /dev/null && sudo apt install tzdata -yqq > /dev/null    
+          export TZ="Asia/Jakarta"
+          cat /usr/share/zoneinfo/Asia/Jakarta > /etc/localtime
+          
+    - name: Hello from development
+      run: |
+          echo "Hi, world!"
+          echo "To day is $(date)"
+
+#     - run: |
+#         echo "Log level: ${{ github.event.inputs.logLevel }}"
+#         echo "Tags: ${{ github.event.inputs.tags }}"
